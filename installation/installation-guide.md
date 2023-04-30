@@ -62,6 +62,29 @@ Go to http://localhost:8083/ and sign in with default admin credentials : admin/
 ### Install and deploy Backend from Sources
 The following section contains a step-by-step guide to build PatrOwl from its sources.
 
+### Start automaticaly
+````
+[Unit]
+Description=Docker Compose Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+WorkingDirectory=/path/to/docker-compose/directory
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+
+sudo systemctl start docker-compose.service
+
+sudo systemctl enable docker-compose.service
+````
+
 #### 1. Install system pre-requisites
 The following software are required to download and run PatrOwl:
 + [PosgreSQL](https://www.postgresql.org/download/)
